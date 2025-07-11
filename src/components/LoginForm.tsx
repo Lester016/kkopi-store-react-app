@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { set, useForm, type SubmitHandler } from "react-hook-form";
+import { useForm, type SubmitHandler } from "react-hook-form";
 import { login } from "../api/authApi";
 
 type LoginFormInputs = {
@@ -24,7 +24,7 @@ const LoginForm = () => {
       localStorage.setItem("token", result);
       setErrorMessage(null); // Clear on success
       // Redirect or update auth state
-      
+
     } catch (error: any) {
       console.error("Login error:", error?.response?.data || error.message);
       if (error.response?.data?.error) {
