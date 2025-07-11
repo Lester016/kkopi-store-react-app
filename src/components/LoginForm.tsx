@@ -1,5 +1,6 @@
-import React from "react";
-import { useForm, type SubmitHandler } from "react-hook-form";
+import React, { useState } from "react";
+import { set, useForm, type SubmitHandler } from "react-hook-form";
+import { login } from "../api/authApi";
 
 type LoginFormInputs = {
   email: string;
@@ -12,16 +13,36 @@ const LoginForm = () => {
     handleSubmit,
     formState: { errors },
   } = useForm<LoginFormInputs>();
+  const [errorMessage, setErrorMessage] = useState(null as string | null);
 
-  const onSubmit: SubmitHandler<LoginFormInputs> = (data) => {
-    console.log("Login Data:", data);
-    // You would typically call an auth API here
-    // Example: authService.login(data.email, data.password)
+  const onSubmit: SubmitHandler<LoginFormInputs> = async (data) => {
+    try {
+      const result = await login(data);
+      console.log("Login success:", result);
+
+      // Store token or user data
+      localStorage.setItem("token", result);
+      setErrorMessage(null); // Clear on success
+      // Redirect or update auth state
+      
+    } catch (error: any) {
+      console.error("Login error:", error?.response?.data || error.message);
+      if (error.response?.data?.error) {
+        setErrorMessage(error?.response?.data?.error);
+      } else {
+        setErrorMessage("Something went wrong. Please try again.");
+      }
+    }
   };
 
   return (
     <div className="max-w-md mx-auto mt-10 p-6 shadow-lg rounded-lg border bg-white">
       <h2 className="text-2xl font-semibold text-center mb-6">Login</h2>
+
+      {errorMessage && (
+        <p className="text-red-600 text-sm mb-4 text-center">{errorMessage}</p>
+      )}
+
       <form onSubmit={handleSubmit(onSubmit)} noValidate>
         <div className="mb-4">
           <label className="block mb-1 font-medium" htmlFor="email">
