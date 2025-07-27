@@ -1,21 +1,28 @@
 import { jwtDecode } from 'jwt-decode';
 import { create } from 'zustand';
 import { persist } from 'zustand/middleware';
-import axiosInstance from '../api/axiosInstance';
 
-export type DecodedToken = {
+export type DecodedAccessToken = {
   userId: string;
   email: string;
   role: 'ADMIN' | 'EMPLOYEE';
+  exp: number;
+};
+
+export type IToken = {
+  access: string;
+  refresh: string;
 };
 
 type AuthState = {
-  token: { access: string; refresh: string } | null;
-  user: DecodedToken | null;
+  token: IToken | null;
+  user: DecodedAccessToken | null;
   loading: boolean;
   error: string | null;
-  login: (email: string, password: string) => Promise<void>;
-  logout: () => void;
+  setAuth: (token: IToken) => void;
+  clearAuth: () => void;
+  setError: (error: string | null) => void;
+  setLoading: (loading: boolean) => void;
 };
 
 export const useAuthStore = create(
@@ -25,22 +32,15 @@ export const useAuthStore = create(
       token: null,
       loading: false,
       error: null,
-      login: async (email: string, password: string) => {
-        // Simulate auth API
-        set({ loading: true, error: null });
-        try {
-          const response = await axiosInstance.post('/api/login', { email, password });
-          const { user } = jwtDecode(response.data.access) as { user: DecodedToken };
-          set({ loading: false, token: response.data, user: user });
-        } catch (error: any) {
-          set({ loading: false, error: error?.response?.data?.error });
-          console.log('Login error:', error);
-          throw error;
-        }
+      setAuth: ({ access, refresh }) => {
+        const { user } = jwtDecode(access) as { user: DecodedAccessToken };
+        set({ token: { access, refresh }, user });
       },
-      logout: () => {
-        set({ token: null, user: null });
+      clearAuth: () => {
+        set({ token: null, user: null, loading: false, error: null });
       },
+      setError: (error: string | null) => set({ error }),
+      setLoading: (loading: boolean) => set({ loading }),
     }),
     {
       name: 'auth-storage',
@@ -51,7 +51,7 @@ export const useAuthStore = create(
           const decoded = jwtDecode(state.token.access);
           const now = Date.now() / 1000;
           if (!decoded.exp || decoded.exp < now) {
-            state.logout(); // Token expired on boot
+            state.clearAuth(); // Token expired on boot
           }
         }
       },
