@@ -3,7 +3,7 @@ import { create } from 'zustand';
 import { persist } from 'zustand/middleware';
 
 export type DecodedAccessToken = {
-  userId: string;
+  id: string;
   email: string;
   role: 'ADMIN' | 'EMPLOYEE';
   exp: number;
