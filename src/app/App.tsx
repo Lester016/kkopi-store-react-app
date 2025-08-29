@@ -1,6 +1,6 @@
 import NavBar from '../shared/components/NavBar';
-import { useAuthStore } from '../store/authStore';
 import AppRouter from './router';
+import { useAuthStore } from './store';
 
 const App = () => {
   const { user } = useAuthStore();

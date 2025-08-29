@@ -1,9 +1,9 @@
 import { Navigate, Route, Routes } from 'react-router-dom';
-import Attendance from '../../pages/Attendance';
+import { Login } from '../../features/auth';
+import Attendance from '../../features/employee/attendance/components/Attendance';
 import CreateEmployee from '../../pages/CreateEmployee';
 import { DashBoard } from '../../pages/DashBoard';
 import Employees from '../../pages/Employees';
-import Login from '../../pages/Login';
 import { NotFound } from '../../pages/NotFound';
 import RedirectByRole from '../../pages/RedirectByRole';
 import SchedulePage from '../../pages/Schedule';
