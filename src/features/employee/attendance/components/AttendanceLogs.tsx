@@ -33,13 +33,12 @@ const mapAttendanceLogs = (records: AttendanceRecord[]): AttendanceLog[] => {
 };
 
 const AttendanceLogs = ({ attendanceRecords }: { attendanceRecords: AttendanceRecord[] }) => {
-  const itemsPerPage = 3;
+  const itemsPerPage = 4;
   const [currentPage, setCurrentPage] = useState(1);
   const allLogs = mapAttendanceLogs(attendanceRecords);
   const totalPages = Math.ceil(allLogs.length / itemsPerPage);
   const startIndex = (currentPage - 1) * itemsPerPage;
   const logs = allLogs.slice(startIndex, startIndex + itemsPerPage);
-  console.log('logs to show:', logs);
 
   return (
     <motion.div

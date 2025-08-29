@@ -1,6 +1,7 @@
 import { Camera } from 'lucide-react';
 import { useRef, useState } from 'react';
 import { Button } from '../../../../shared/components/Button';
+import dataURLtoFile from '../utils/dataUrlToFile';
 
 type Props = {
   photo: File | null;
@@ -45,15 +46,6 @@ const CameraCapture = ({ photo, setPhoto }: Props) => {
       stream.getTracks().forEach((t) => t.stop());
       videoRef.current.srcObject = null;
     }
-  };
-
-  const dataURLtoFile = (dataUrl: string, filename: string) => {
-    const arr = dataUrl.split(',');
-    const mime = arr[0].match(/:(.*?);/)?.[1] || 'image/jpeg';
-    const bstr = atob(arr[1]);
-    const u8arr = new Uint8Array(bstr.length);
-    for (let i = 0; i < bstr.length; i++) u8arr[i] = bstr.charCodeAt(i);
-    return new File([u8arr], filename, { type: mime });
   };
 
   if (!photo && !isCapturing) {
