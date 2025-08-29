@@ -1,5 +1,3 @@
-// src/shared/components/Button.tsx
-
 import React from 'react';
 
 type ButtonProps = React.ButtonHTMLAttributes<HTMLButtonElement> & {
@@ -20,21 +18,25 @@ export const Button = ({
   let variantClasses = '';
   switch (variant) {
     case 'primary':
-      variantClasses = 'bg-blue-600 text-white hover:bg-blue-700 disabled:opacity-50';
+      variantClasses =
+        'bg-blue-600 text-white hover:bg-blue-700 disabled:opacity-50  active:scale-[0.98] transition disabled:opacity-50';
       break;
     case 'secondary':
-      variantClasses = 'text-gray-600 hover:bg-gray-100 disabled:opacity-50';
+      variantClasses =
+        'text-gray-600 hover:bg-gray-100 disabled:opacity-50  active:scale-[0.98] transition disabled:opacity-50';
       break;
     case 'danger':
-      variantClasses = 'bg-red-600 text-white hover:bg-red-700 disabled:opacity-50';
+      variantClasses =
+        'bg-red-600 text-white hover:bg-red-700 disabled:opacity-50  active:scale-[0.98] transition disabled:opacity-50';
       break;
     case 'success':
-      variantClasses = 'bg-green-600 text-white hover:bg-green-700 disabled:opacity-50';
+      variantClasses =
+        'bg-green-600 text-white hover:bg-green-700 disabled:opacity-50  active:scale-[0.98] transition disabled:opacity-50';
       break;
     case 'icon':
       variantClasses =
         'p-2 border text-gray-600 border-gray-300 hover:bg-gray-100 ' +
-        'disabled:text-gray-300 disabled:border-gray-200 disabled:cursor-not-allowed';
+        'disabled:text-gray-300 disabled:border-gray-200 disabled:cursor-not-allowed  active:scale-[0.98] transition disabled:opacity-50';
       break;
   }
 
