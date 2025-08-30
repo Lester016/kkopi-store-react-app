@@ -52,7 +52,7 @@ const CameraCapture = ({ photo, setPhoto }: Props) => {
     return (
       <div
         onClick={startCamera}
-        className="flex flex-col items-center justify-center border-2 border-dashed border-gray-300 rounded-xl p-6 cursor-pointer hover:border-gray-400 transition"
+        className="flex flex-col items-center justify-center border-2 border-dashed border-gray-300 rounded-xl p-6 cursor-pointer hover:border-gray-400 transition mb-5"
       >
         <Camera className="text-gray-500 w-10 h-10 mb-2" />
         <p className="text-gray-500 text-sm">Take a selfie</p>
