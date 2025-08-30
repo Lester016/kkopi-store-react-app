@@ -1,5 +1,5 @@
 import { Link, useNavigate } from 'react-router-dom';
-import { useAuthStore } from '../../store/authStore';
+import { useAuthStore } from '../../app/store/authStore';
 
 const employeeLinks = [{ to: '/', label: 'Home' }];
 

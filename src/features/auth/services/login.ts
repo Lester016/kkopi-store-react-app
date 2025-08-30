@@ -1,4 +1,4 @@
-import axiosInstance from '../../../api/axiosInstance';
+import axiosInstance from '../../../shared/api/axiosInstance';
 import type { LoginFormInputs } from '../types/login.types';
 
 export const login = async (payload: LoginFormInputs) => {

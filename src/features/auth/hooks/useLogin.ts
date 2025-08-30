@@ -1,7 +1,7 @@
 import { useMutation } from '@tanstack/react-query';
 import type { AxiosError } from 'axios';
-import axiosInstance from '../../../api/axiosInstance';
 import { useAuthStore } from '../../../app/store';
+import axiosInstance from '../../../shared/api/axiosInstance';
 
 type LoginPayload = { email: string; password: string };
 

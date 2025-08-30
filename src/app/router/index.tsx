@@ -1,15 +1,15 @@
 import { Navigate, Route, Routes } from 'react-router-dom';
+import { Dashboard } from '../../features/admin';
 import { Login } from '../../features/auth';
-import Attendance from '../../features/employee/attendance/components/Attendance';
+import { Attendance } from '../../features/employee';
 import CreateEmployee from '../../pages/CreateEmployee';
-import { DashBoard } from '../../pages/DashBoard';
 import Employees from '../../pages/Employees';
 import { NotFound } from '../../pages/NotFound';
-import RedirectByRole from '../../pages/RedirectByRole';
 import SchedulePage from '../../pages/Schedule';
 import UpdateEmployee from '../../pages/UpdateEmployee';
 import { ProtectedRoute } from './ProtectedRoute';
 import { PublicOnlyRoute } from './PublicRoutes';
+import RedirectByRole from './RedirectByRole';
 
 const AppRouter = () => {
   return (
@@ -25,7 +25,7 @@ const AppRouter = () => {
       <Route path="/" element={<RedirectByRole />} />
       {/* Admin routes */}
       <Route element={<ProtectedRoute allowedRoles={['ADMIN']} />}>
-        <Route path="/dashboard" element={<DashBoard />} />
+        <Route path="/dashboard" element={<Dashboard />} />
         <Route path="/employees" element={<Employees />} />
         <Route path="/employees/create" element={<CreateEmployee />} />
         <Route path="/employees/:id/schedule" element={<SchedulePage />} />

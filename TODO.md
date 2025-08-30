@@ -1,0 +1,1 @@
+- Add new properties to the UserList component to display user details such as job title, joined date, role, and branch.

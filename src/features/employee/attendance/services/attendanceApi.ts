@@ -1,4 +1,4 @@
-import axiosInstance from '../../../../api/axiosInstance';
+import axiosInstance from '../../../../shared/api/axiosInstance';
 import type { AttendanceRecord } from '../types/attendance.types';
 import compressImage from '../utils/compressImage';
 
