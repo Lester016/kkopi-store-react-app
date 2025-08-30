@@ -8,8 +8,8 @@ import { NotFound } from '../../pages/NotFound';
 import RedirectByRole from '../../pages/RedirectByRole';
 import SchedulePage from '../../pages/Schedule';
 import UpdateEmployee from '../../pages/UpdateEmployee';
-import { ProtectedRoute } from '../../routes/ProtectedRoute';
-import { PublicOnlyRoute } from '../../routes/PublicRoutes';
+import { ProtectedRoute } from './ProtectedRoute';
+import { PublicOnlyRoute } from './PublicRoutes';
 
 const AppRouter = () => {
   return (
