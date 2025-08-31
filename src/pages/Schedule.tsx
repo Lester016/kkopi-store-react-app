@@ -27,7 +27,7 @@ const SchedulePage = () => {
   const { name } = location.state as { name: string };
   const [schedule, setSchedule] = useState<WeeklySchedule>({});
   const navigate = useNavigate();
-  const [loading, setLoading] = useState(true);
+  const [loading, setLoading] = useState(false);
   const [errorMessage, setErrorMessage] = useState('');
 
   useEffect(() => {
@@ -66,6 +66,7 @@ const SchedulePage = () => {
   };
 
   const handleSubmit = async () => {
+    setLoading(true);
     try {
       const filteredSchedule = Object.fromEntries(
         Object.entries(schedule).filter(([, value]) => value.shiftStart || value.shiftEnd)
@@ -73,7 +74,11 @@ const SchedulePage = () => {
       const payload = { schedule: filteredSchedule };
       const response = await axiosInstance.put(`/api/users/${id}/schedule`, payload);
       console.log('Schedule submitted successfully:', response.data);
+      setLoading(false);
+      navigate(-1);
     } catch (error) {
+      setLoading(false);
+      setErrorMessage('Failed to submit schedule. Please try again.');
       console.error('Failed to submit schedule:', error);
     }
   };
@@ -82,6 +87,9 @@ const SchedulePage = () => {
     <div className="p-8 max-w-4xl mx-auto">
       <h1 className="text-3xl font-semibold mb-6 text-gray-800">{name}'s Schedule</h1>
 
+      {errorMessage && (
+        <div className="bg-red-100 text-red-700 p-4 rounded mb-6">{errorMessage}</div>
+      )}
       <div className="space-y-6">
         {daysOfWeek.map((day) => (
           <div
@@ -124,12 +132,16 @@ const SchedulePage = () => {
           Cancel
         </button>
 
-        <button
-          onClick={handleSubmit}
-          className="px-5 py-3 bg-green-600 text-white rounded-xl font-medium hover:bg-green-700 transition-all"
-        >
-          Update
-        </button>
+        {loading ? (
+          <span>loading...</span>
+        ) : (
+          <button
+            onClick={handleSubmit}
+            className="px-5 py-3 bg-green-600 text-white rounded-xl font-medium hover:bg-green-700 transition-all"
+          >
+            Update
+          </button>
+        )}
       </div>
     </div>
   );
